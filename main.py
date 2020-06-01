@@ -7,9 +7,28 @@ import csv
 import re
 
 def main():
-    labels = []
-    with open("IMDB_labels.csv", 'r') as file:
-        labels = pd.read_csv(file)['sentiment']
+    training = []
+    with open("trainingSet.txt", 'r') as file:
+        line = file.readline()
+        i = 0
+        while line:
+            training.append(line.split('\t'))
+            line = file.readline()
+            training[i][1] = int(training[i][1][1])
+            i += 1
+
+    testing = []
+    with open("testSet.txt", 'r') as file:
+        line = file.readline()
+        i = 0
+        while line:
+            testing.append(line.split('\t'))
+            testing[i][1] = int(testing[i][1][1])
+            line = file.readline()
+            i += 1
+
+    print(training)
+    print(testing)
 
     # Importing the dataset
     imdb_data = pd.read_csv('IMDB.csv', delimiter=',')
